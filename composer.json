@@ -1,0 +1,28 @@
+{
+    "name": "tbpixel/soap-client",
+    "description": "A WSDL supported SOAP client.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tony Barry",
+            "email": "tonympbarry@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "TBPixel\\SoapClient\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.2",
+        "ext-xml": "*",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.11.2",
+        "phpunit/phpunit": "^8.0",
+        "friendsofphp/php-cs-fixer": "^2.14",
+        "infection/infection": "^0.12.2"
+    }
+}
