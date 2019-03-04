@@ -12,4 +12,4 @@ cs-fixer:
 	./vendor/bin/php-cs-fixer fix ./tests
 
 analyse:
-	./vendor/bin/phpstan analyse --level=max ./src ./tests
+	./vendor/bin/phpstan analyse --level=max ./src

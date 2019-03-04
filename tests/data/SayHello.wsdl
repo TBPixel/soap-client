@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions name="SayHello" targetNamespace="http://localhost/SayHello/"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://localhost/SayHello/"
+    xmlns:xsd="http://localhost/SayHello/scheme"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+
+    <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">A service that says hello</documentation>
+
+    <types>
+        <schema targetNamespace="http://localhost/SayHello/scheme" xmlns="http://www.w3.org/2001/XMLSchema">
+
+            <element name="Person">
+                <complexType>
+                    <all>
+                        <element name="FirstName" type="string"/>
+                        <element name="LastName" type="string"/>
+                    </all>
+                </complexType>
+            </element>
+
+            <element name="Greeting">
+                <complexType>
+                    <all>
+                        <element name="Message" type="string"/>
+                    </all>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+
+    <message name="SayHelloToIn">
+        <part name="body" element="xsd:Person"/>
+    </message>
+
+    <message name="SayHelloToOut">
+        <part name="body" element="xsd:Greeting"/>
+    </message>
+
+    <portType name="sayHelloPortType">
+        <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">RPC style operations to say hello.</documentation>
+
+        <operation name="SayHelloTo">
+            <input message="tns:SayHelloToIn"/>
+            <output message="tns:SayHelloToOut"/>
+        </operation>
+    </portType>
+
+    <binding name="sayHelloBinding" type="tns:sayHelloPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <operation name="SayHelloTo">
+            <soap:operation soapAction="SayHelloTo"/>
+
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="sayHelloService">
+        <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">A service that says hello</documentation>
+
+        <port name="sayHelloPortType" binding="tns:sayHelloBinding">
+            <soap:address location="http://localhost/SayHello/"/>
+        </port>
+    </service>
+</definitions>
