@@ -9,7 +9,7 @@ use Psr\Http\Message\StreamInterface;
  *
  * This client is responsible for making requests to a SOAP API.
  */
-final class Client
+class Client
 {
     /**
      * The HTTP request handler.
