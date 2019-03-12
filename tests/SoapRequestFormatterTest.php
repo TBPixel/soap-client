@@ -29,8 +29,10 @@ final class SoapRequestFormatterTest extends TestCase
 
         $person = file_get_contents(__DIR__ . '/data/SayHelloPerson.xml');
         $expected = trim(preg_replace('/\s+/', '', $person));
-        $actual = trim(preg_replace('/\s+/', '', $request));
+        $actual = trim(preg_replace('/\s+/', '', $request->getBody()));
 
+        $this->assertEquals('SayHelloTo', $request->getAction());
+        $this->assertEquals('http://localhost/SayHello/', $request->getLocation());
         $this->assertEquals($expected, $actual);
     }
 }

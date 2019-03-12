@@ -25,29 +25,22 @@ final class GuzzleHandler implements Handler
      */
     private $formatter;
 
-    /**
-     * The service endpoint to make a request to.
-     *
-     * @var string
-     */
-    private $uri;
-
-    public function __construct(ClientInterface $client, Formatter $formatter, string $uri)
+    public function __construct(ClientInterface $client, Formatter $formatter)
     {
         $this->client = $client;
         $this->formatter = $formatter;
-        $this->uri = $uri;
     }
 
     public function request(string $action, array $body): StreamInterface
     {
         try {
-            $response = $this->client->request('POST', $this->uri, [
+            $soapCall = $this->formatter->format($action, $body);
+            $response = $this->client->request('POST', $soapCall->getLocation(), [
                 'headers' => [
                     'content-type' => 'text/xml',
-                    'SOAPAction' => $action,
+                    'SOAPAction' => $soapCall->getAction(),
                 ],
-                'body' => $this->formatter->format($action, $body),
+                'body' => $soapCall->getBody(),
             ]);
 
             return $response->getBody();

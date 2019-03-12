@@ -2,6 +2,7 @@
 
 namespace TBPixel\SoapClient\Formatters;
 
+use TBPixel\SoapClient\Handlers\SoapCall;
 use TBPixel\SoapClient\Handlers\Formatter;
 use TBPixel\SoapClient\Exceptions\RequestFormatterHack;
 
@@ -27,17 +28,17 @@ final class SoapRequestFormatter extends \SoapClient implements Formatter
         // This is a MASSIVE hack. It is very important that a formatter be rewritten,
         // or a new one provided, to ensure formatting of requests is handled correctly.
         // Invalid requests will cause weird bugs because of this process.
-        throw new RequestFormatterHack($request);
+        throw new RequestFormatterHack(new SoapCall($action, $location, $request));
     }
 
-    public function format(string $action, array $body): string
+    public function format(string $action, array $body): SoapCall
     {
         try {
             $this->__soapCall($action, $body);
             // NOTE!
             // See __doRequest comment for info about this hack.
         } catch (RequestFormatterHack $hack) {
-            return $hack->getMessage();
+            return $hack->getSoapCall();
         }
     }
 }

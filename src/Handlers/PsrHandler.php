@@ -28,17 +28,18 @@ final class PsrHandler implements Handler
      */
     private $uri;
 
-    public function __construct(ClientInterface $client, Formatter $formatter, string $uri)
+    public function __construct(ClientInterface $client, Formatter $formatter)
     {
         $this->client = $client;
         $this->formatter = $formatter;
-        $this->uri = $uri;
     }
 
     public function request(string $action, array $body): StreamInterface
     {
         try {
-            $request = $this->makeRequest($action, $this->formatter->format($action, $body));
+            $soapCall = $this->formatter->format($action, $body);
+            $request = $this->makeRequest('POST', $soapCall);
+
             $response = $this->client->sendRequest($request);
 
             return $response->getBody();
@@ -47,16 +48,16 @@ final class PsrHandler implements Handler
         }
     }
 
-    private function makeRequest(string $action, string $body): RequestInterface
+    private function makeRequest(string $method, SoapCall $soapCall): RequestInterface
     {
         return new Request(
-            'POST',
-            $this->uri,
+            $method,
+            $soapCall->getLocation(),
             [
                 'content-type' => 'text/xml',
-                'SOAPAction' => $action,
+                'SOAPAction' => $soapCall->getAction(),
             ],
-            $body
-        );
+            $soapCall->getBody(),
+            );
     }
 }

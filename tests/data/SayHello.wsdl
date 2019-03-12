@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<definitions name="SayHello" targetNamespace="http://localhost/SayHello/"
-    xmlns="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:tns="http://localhost/SayHello/"
-    xmlns:xsd="http://localhost/SayHello/scheme"
+<definitions name="SayHello" targetNamespace="http://localhost/SayHello/" 
+    xmlns="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:tns="http://localhost/SayHello/" 
+    xmlns:xsd="http://localhost/SayHello/scheme" 
     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
 
     <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">A service that says hello</documentation>
 
     <types>
-        <schema targetNamespace="http://localhost/SayHello/scheme" xmlns="http://www.w3.org/2001/XMLSchema">
+        <schema targetNamespace="http://localhost/SayHello/scheme" 
+            xmlns="http://www.w3.org/2001/XMLSchema">
 
             <element name="Person">
                 <complexType>
