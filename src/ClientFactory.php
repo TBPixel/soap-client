@@ -18,7 +18,7 @@ final class ClientFactory
         $soap = new \SoapClient($wsdl, $soapOptions);
         $guzzle = new Guzzle;
         $formatter = new SoapRequestFormatter($wsdl, $soapOptions);
-        $handler = new GuzzleHandler($guzzle, $formatter, $wsdl);
+        $handler = new GuzzleHandler($guzzle, $formatter);
 
         return new Client($wsdl, $soap, $handler);
     }

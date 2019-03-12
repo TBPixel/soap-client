@@ -34,6 +34,14 @@ final class ClientTest extends TestCase
     }
 
     /** @test */
+    public function can_make_client_with_factory()
+    {
+        $client = ClientFactory::new($this->wsdl);
+
+        $this->assertInstanceOf(Client::class, $client);
+    }
+
+    /** @test */
     public function can_parse_wsdl()
     {
         $handler = new HandlerMock;

@@ -10,5 +10,5 @@ interface Formatter
     /**
      * Accepts an array of data and formats it in the appropriate request structure.
      */
-    public function format(string $action, array $body): string;
+    public function format(string $action, array $body): SoapCall;
 }
