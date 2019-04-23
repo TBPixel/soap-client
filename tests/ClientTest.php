@@ -5,6 +5,7 @@ namespace TBPixel\SoapClient\Tests;
 use TBPixel\SoapClient\Client;
 use TBPixel\SoapClient\Handler;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\StreamInterface;
 use TBPixel\SoapClient\ClientFactory;
 use TBPixel\SoapClient\Tests\Mocks\HandlerMock;
@@ -36,7 +37,9 @@ final class ClientTest extends TestCase
     /** @test */
     public function can_make_client_with_factory()
     {
-        $client = ClientFactory::new($this->wsdl);
+        /** @var ClientInterface $m */
+        $m = $this->createMock(ClientInterface::class);
+        $client = ClientFactory::new($m, $this->wsdl);
 
         $this->assertInstanceOf(Client::class, $client);
     }

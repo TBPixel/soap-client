@@ -1,6 +1,3 @@
-optimize:
-	composer dump-autoload -o
-
 test:
 	./vendor/bin/phpunit
 

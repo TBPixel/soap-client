@@ -2,8 +2,8 @@
 
 namespace TBPixel\SoapClient;
 
-use GuzzleHttp\Client as Guzzle;
-use TBPixel\SoapClient\Handlers\GuzzleHandler;
+use Psr\Http\Client\ClientInterface;
+use TBPixel\SoapClient\Handlers\PsrHandler;
 use TBPixel\SoapClient\Formatters\SoapRequestFormatter;
 
 /**
@@ -13,12 +13,11 @@ use TBPixel\SoapClient\Formatters\SoapRequestFormatter;
  */
 final class ClientFactory
 {
-    public static function new(string $wsdl, array $soapOptions = []): Client
+    public static function new(ClientInterface $client, string $wsdl, array $soapOptions = []): Client
     {
         $soap = new \SoapClient($wsdl, $soapOptions);
-        $guzzle = new Guzzle;
         $formatter = new SoapRequestFormatter($wsdl, $soapOptions);
-        $handler = new GuzzleHandler($guzzle, $formatter);
+        $handler = new PsrHandler($client, $formatter);
 
         return new Client($wsdl, $soap, $handler);
     }

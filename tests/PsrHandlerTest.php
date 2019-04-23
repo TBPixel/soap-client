@@ -3,7 +3,6 @@
 namespace TBPixel\SoapClient\Tests;
 
 use Mockery;
-use GuzzleHttp\Psr7\Request;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\StreamInterface;
